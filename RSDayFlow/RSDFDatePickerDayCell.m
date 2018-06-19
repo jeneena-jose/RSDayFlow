@@ -69,11 +69,13 @@
 
 - (void)commonInitializer
 {
+    
+    self.dayMarked = FALSE;
     self.backgroundColor = [self selfBackgroundColor];
     
-    [self addSubview:self.selectedDayImageView];
-    [self addSubview:self.overlayImageView];
-    [self addSubview:self.markImageView];
+//    [self addSubview:self.selectedDayImageView];
+//    [self addSubview:self.overlayImageView];
+//    [self addSubview:self.markImageView];
     [self addSubview:self.dividerImageView];
     [self addSubview:self.dateLabel];
     
@@ -84,6 +86,14 @@
 {
     [super layoutSubviews];
     
+    if( !self.dayMarked || self.isNotThisMonth ) {
+        for(UIView *view in self.subviews){
+            if([view isKindOfClass:[UIImageView class]]){
+                [view removeFromSuperview];
+            }
+        }
+    }
+
     self.dateLabel.frame = [self selectedImageViewFrame];
     self.selectedDayImageView.frame = [self selectedImageViewFrame];
     self.overlayImageView.frame = [self selectedImageViewFrame];
@@ -206,14 +216,36 @@
 }
 
 #pragma mark - Private
+//
+//- (void) prepareForReuse{
+//    for(UIView *view in self.subviews){
+//        if([view isKindOfClass:[UIImageView class]]){
+//            [view removeFromSuperview];
+//        }
+//    }
+//}
 
 - (void)updateSubviews
 {
+//    [self prepareForReuse];
+    
     self.selectedDayImageView.hidden = !self.isSelected || self.isNotThisMonth || self.isOutOfRange;
     self.overlayImageView.hidden = !self.isHighlighted || self.isNotThisMonth || self.isOutOfRange;
     self.markImageView.hidden = !self.isMarked || self.isNotThisMonth || self.isOutOfRange;
     self.dividerImageView.hidden = self.isNotThisMonth;
 
+    self.selectedDayImageView.tag = 1;
+    self.overlayImageView.tag = 2;
+    self.markImageView.tag = 3;
+    self.dividerImageView.tag = 4;
+    
+    self.selectedDayImageView.hidden = TRUE;
+    self.overlayImageView.hidden = TRUE;
+    self.markImageView.hidden = TRUE;
+    self.dividerImageView.hidden = TRUE;
+
+    
+    
     if (self.isNotThisMonth) {
         self.dateLabel.textColor = [self notThisMonthLabelTextColor];
         self.dateLabel.font = [self dayLabelFont];
