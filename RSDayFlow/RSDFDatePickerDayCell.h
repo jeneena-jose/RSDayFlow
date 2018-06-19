@@ -85,6 +85,11 @@
 @property (nonatomic, getter = isMarked) BOOL marked;
 
 /**
+ A Boolean value that determines whether the cell have a mark. Customised for handling two selections
+ */
+@property (nonatomic, getter = isDayMarked) BOOL dayMarked;
+
+/**
  A Boolean value that determines whether the cell is out of range or not (startDate, endDate)
  */
 @property (nonatomic, getter = isOutOfRange) BOOL outOfRange;
