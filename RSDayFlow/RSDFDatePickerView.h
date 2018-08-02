@@ -288,8 +288,7 @@ Deselect dates
  It does not call this method when you programmatically set the selection.
  
  @param view The view whose date was selected.
- @param startDate The selected start date for range.
- @param endDate The selected end date for range.
+ @param dates selected start date for range.
  */
 - (void)datePickerView:(RSDFDatePickerView * __nonnull)view didSelectDates:(NSArray<NSDate *> * __nonnull)dates;
 
